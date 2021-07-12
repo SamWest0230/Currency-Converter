@@ -1,11 +1,11 @@
 import React from 'react';
 import './styles/starting.scss';
 
-function Starting (props){
+function End (props){
 
         return(
             <section className='starting'>
-             <input onChange={props.change} type='number' name='fromAmount' />
+             <input onChange={props.change} type='number' name='toAmount' />
              <select onChange={props.change} >
                         <option value='none'>Please Select</option>
                         {props.rates.map(rate => {
@@ -16,4 +16,4 @@ function Starting (props){
             </section>
         )
 
-}; export default Starting;
+}; export default End;
