@@ -6,7 +6,7 @@ function End (props){
         return(
             <section className='starting'>
              <input onChange={props.change} type='number' name='toAmount' />
-             <select onChange={props.change} >
+             <select onChange={props.change} name='toCurrency' >
                         <option value='none'>Please Select</option>
                         {props.rates.map(rate => {
                             return(

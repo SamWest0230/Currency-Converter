@@ -15,7 +15,8 @@ class App extends React.Component {
     fromCurrency: '',
     toCurrency: '',
     fromAmount: 0,
-    toAmount: 0
+    toAmount: 0,
+    rate: 0
 
   }
 
@@ -26,21 +27,25 @@ class App extends React.Component {
       })
     }
 
-  componentDidUpdate = (prevState) => {
-    if (this.state.fromAmount === 0){
-      return;
-    }
+  componentDidUpdate = (prevProps, prevState) => {
     const fromCurrency = this.state.fromCurrency;
     const prevFromCurrency = prevState.fromCurrency;
     const toCurrency = this.state.toCurrency;
     const prevToCurrency = prevState.toCurrency;
     const amount = this.state.fromAmount
+    if (amount === 0){
+      return;
+    }
+    console.log('here'+ toCurrency, fromCurrency)
+    console.log(prevToCurrency, prevFromCurrency)
     if 
       (fromCurrency !== prevFromCurrency || toCurrency !== prevToCurrency ) {
-        axios.get(url + 'convert' + '?access_key=' + access_key + '&from='+ 'CAD' + '&to='+ 'USD' + '&amount=' + '25')
+        axios.get(url + 'convert' + '?access_key=' + access_key + '&from='+ fromCurrency + '&to='+ toCurrency + '&amount=' + amount)
         .then(response => {
           console.log(response)
           this.setState({
+            rate: response.data.result
+
           })
         })
         .catch((err) => {
