@@ -2,7 +2,6 @@ import React from 'react';
 import './App.scss';
 import axios from 'axios'
 import Starting from "./components/startingCurrency"
-import End from "./components/endCurrency"
 const url = 'http://api.exchangeratesapi.io/v1/';
 const access_key = 'ffb50f324c1ac8ef64c0d035e489dc8c';
 
@@ -12,8 +11,8 @@ class App extends React.Component {
   state = {
 
     rates: [],
-    fromCurrency: '',
-    toCurrency: '',
+    fromCurrency: null,
+    toCurrency: null,
     fromAmount: 0,
     toAmount: 0,
     rate: 0
@@ -21,7 +20,6 @@ class App extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(e.target.value)
       this.setState({
         [e.target.name]: e.target.value
       })
@@ -36,13 +34,10 @@ class App extends React.Component {
     if (amount === 0){
       return;
     }
-    console.log('here'+ toCurrency, fromCurrency)
-    console.log(prevToCurrency, prevFromCurrency)
     if 
       (fromCurrency !== prevFromCurrency || toCurrency !== prevToCurrency ) {
         axios.get(url + 'convert' + '?access_key=' + access_key + '&from='+ fromCurrency + '&to='+ toCurrency + '&amount=' + amount)
         .then(response => {
-          console.log(response)
           this.setState({
             rate: response.data.result
 
@@ -56,8 +51,9 @@ class App extends React.Component {
   componentDidMount = () => {
     axios.get(url + 'latest' + '?access_key=' + access_key)
       .then(response => {
-        console.log(response)
         this.setState({
+          fromCurrency: '',
+          toCurrency: '',
          rates: [...Object.keys(response.data.rates)]
         })
       })
@@ -67,13 +63,10 @@ class App extends React.Component {
   }
 
   render() {
-console.log(this.state.fromCurrency)
     return (
       <div className="App">
-        <h1>hello</h1>
-        <Starting rates={this.state.rates} change={this.handleChange} />
-        <h2>=</h2>
-        <End rates={this.state.rates} change={this.handleChange} />
+        <h1 className='App__title'>Currency Converter</h1>
+        <Starting rates={this.state.rates} change={this.handleChange} result={this.state.rate} />
       </div>
     );
   }

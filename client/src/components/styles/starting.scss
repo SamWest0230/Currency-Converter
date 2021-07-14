@@ -1,0 +1,25 @@
+@use '../../partials/resets.scss' as *;
+
+.starting{
+    display: flex;
+    flex-direction: column;
+    margin: 0 10rem;
+    height: 100vw;
+    padding-top: 3rem;
+
+    &__label{
+        text-align: left;
+        padding: .5rem 0;
+        font-size: 1.5rem;
+    }
+    &__input{
+        height: 1.5rem;
+        font-size: 1.2rem;
+        margin-bottom: .5rem;
+    }
+    &__result{
+        text-align: center;
+        padding: 1.5rem 0;
+        font-size: 2rem;
+    }
+}
