@@ -2,9 +2,8 @@ import React from 'react';
 import './App.scss';
 import axios from 'axios'
 import Starting from "./components/startingCurrency"
-const url = 'http://api.exchangeratesapi.io/v1/';
-const access_key = 'ffb50f324c1ac8ef64c0d035e489dc8c';
-
+const url = process.env.REACT_APP_URL
+const access_key = process.env.REACT_APP_ACCESS_KEY
 
 class App extends React.Component {
 
@@ -36,7 +35,7 @@ class App extends React.Component {
     }
     if 
       (fromCurrency !== prevFromCurrency || toCurrency !== prevToCurrency ) {
-        axios.get(url + 'convert' + '?access_key=' + access_key + '&from='+ fromCurrency + '&to='+ toCurrency + '&amount=' + amount)
+        axios.get( url + 'convert' + '?access_key=' + access_key + '&from='+ fromCurrency + '&to='+ toCurrency + '&amount=' + amount)
         .then(response => {
           this.setState({
             rate: response.data.result
